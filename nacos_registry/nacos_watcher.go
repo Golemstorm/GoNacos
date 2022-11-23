@@ -4,8 +4,8 @@ import (
 	"github.com/micro/go-micro/v2/logger"
 	"github.com/micro/go-micro/v2/registry"
 	"github.com/micro/go-micro/v2/util/net"
-	"github.com/nacos-group/nacos-sdk-go/model"
-	"github.com/nacos-group/nacos-sdk-go/vo"
+	"github.com/nacos-group/nacos-sdk-go/v2/model"
+	"github.com/nacos-group/nacos-sdk-go/v2/vo"
 	"reflect"
 	"sync"
 )
@@ -19,7 +19,7 @@ type nacosWatcher struct {
 
 	sync.RWMutex
 	services      map[string][]*registry.Service
-	cacheServices map[string][]model.SubscribeService
+	cacheServices map[string][]model.Instance
 	param         *vo.SubscribeParam
 	Doms          []string
 }
@@ -56,7 +56,7 @@ func (nw *nacosWatcher) Stop() {
 	}
 }
 
-func (nw *nacosWatcher) callBackHandle(services []model.SubscribeService, err error) {
+func (nw *nacosWatcher) callBackHandle(services []model.Instance, err error) {
 	if err != nil {
 		logger.Error("nacos_config watcher call back handle error:%v", err)
 		return
@@ -109,7 +109,7 @@ func (nw *nacosWatcher) callBackHandle(services []model.SubscribeService, err er
 				nw.next <- &registry.Result{Action: "delete", Service: buildRegistryService(&cacheService)}
 
 				nw.Lock()
-				nw.cacheServices[serviceName][index] = model.SubscribeService{}
+				nw.cacheServices[serviceName][index] = model.Instance{}
 				nw.Unlock()
 
 				return
@@ -130,7 +130,7 @@ func NewNacosWatcher(nr *nacosRegistry, opts ...registry.WatchOption) (registry.
 		exit:          make(chan bool),
 		next:          make(chan *registry.Result, 10),
 		services:      make(map[string][]*registry.Service),
-		cacheServices: make(map[string][]model.SubscribeService),
+		cacheServices: make(map[string][]model.Instance),
 		param:         new(vo.SubscribeParam),
 		Doms:          make([]string, 0),
 	}
@@ -168,7 +168,7 @@ func NewNacosWatcher(nr *nacosRegistry, opts ...registry.WatchOption) (registry.
 	return &nw, nil
 }
 
-func buildRegistryService(v *model.SubscribeService) (s *registry.Service) {
+func buildRegistryService(v *model.Instance) (s *registry.Service) {
 	nodes := make([]*registry.Node, 0)
 	nodes = append(nodes, &registry.Node{
 		Id:       v.InstanceId,
