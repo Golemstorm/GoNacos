@@ -12,13 +12,13 @@ func NewServerConfig() constant.ServerConfig {
 	}
 }
 
-func NewClientConfigForACM() constant.ClientConfig {
+func NewClientConfigForACM(endpoint, namespaceId, regionId, ak, sk string) constant.ClientConfig {
 	return constant.ClientConfig{
-		Endpoint:    "acm.aliyun.com:8080",
-		NamespaceId: "e525eafa-f7d7-XXXX-XXXX-XXXXXXXX",
-		RegionId:    "cn-shanghai",
-		AccessKey:   "LTAI4G8KxxxxxxxxxxxxxbwZLBr",
-		SecretKey:   "n5jTL9YxxxxxxxxxxxxaxmPLZV9",
+		Endpoint:    endpoint,
+		NamespaceId: namespaceId,
+		RegionId:    regionId,
+		AccessKey:   ak,
+		SecretKey:   sk,
 		OpenKMS:     true,
 		TimeoutMs:   5000,
 		LogLevel:    "debug",

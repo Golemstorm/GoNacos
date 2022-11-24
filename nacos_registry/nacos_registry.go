@@ -272,15 +272,6 @@ func SetClientConfigForAcm(endpoint, namespaceId, regionId, ak, sk string) {
 		LogLevel:    "debug",
 	}
 }
-func NewClientConfigForACM(endpoint, namespaceId, regionId, ak, sk string) constant.ClientConfig {
-	return constant.ClientConfig{
-		Endpoint:    endpoint,
-		NamespaceId: namespaceId,
-		RegionId:    regionId,
-		AccessKey:   ak,
-		SecretKey:   sk,
-		OpenKMS:     true,
-		TimeoutMs:   5000,
-		LogLevel:    "debug",
-	}
+func SetClientConfigBycConfig(cConfig constant.ClientConfig) {
+	nacosConfigTmp = &cConfig
 }
