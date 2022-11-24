@@ -15,7 +15,7 @@ func NewServerConfig() constant.ServerConfig {
 func NewClientConfigForACM() constant.ClientConfig {
 	return constant.ClientConfig{
 		Endpoint:    "acm.aliyun.com:8080",
-		NamespaceId: "e525eafa-f7d7-4029-83d9-008937f9d468",
+		NamespaceId: "e525eafa-f7d7-XXXX-XXXX-XXXXXXXX",
 		RegionId:    "cn-shanghai",
 		AccessKey:   "LTAI4G8KxxxxxxxxxxxxxbwZLBr",
 		SecretKey:   "n5jTL9YxxxxxxxxxxxxaxmPLZV9",

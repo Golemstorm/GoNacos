@@ -1,4 +1,4 @@
-module github.com/Golemstorm/GoNacos
+module github.com/Golemstorm/go-nacos
 
 go 1.19
 
