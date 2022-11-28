@@ -13,14 +13,27 @@ func NewServerConfig() constant.ServerConfig {
 }
 
 func NewClientConfigForACM(endpoint, namespaceId, regionId, ak, sk string) constant.ClientConfig {
-	return constant.ClientConfig{
-		Endpoint:    endpoint,
-		NamespaceId: namespaceId,
-		RegionId:    regionId,
-		AccessKey:   ak,
-		SecretKey:   sk,
-		OpenKMS:     true,
-		TimeoutMs:   5000,
-		LogLevel:    "debug",
+	if namespaceId != "" {
+		return constant.ClientConfig{
+			Endpoint:    endpoint,
+			NamespaceId: namespaceId,
+			RegionId:    regionId,
+			AccessKey:   ak,
+			SecretKey:   sk,
+			OpenKMS:     true,
+			TimeoutMs:   5000,
+			LogLevel:    "debug",
+		}
+	} else {
+		return constant.ClientConfig{
+			Endpoint:  endpoint,
+			RegionId:  regionId,
+			AccessKey: ak,
+			SecretKey: sk,
+			OpenKMS:   true,
+			TimeoutMs: 5000,
+			LogLevel:  "debug",
+		}
 	}
+
 }
